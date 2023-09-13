@@ -13,8 +13,14 @@ import {
 import { db, storage } from "../firebase";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { Box, InputAdornment, Stack, TextField } from "@mui/material";
-
+import {
+  Box,
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+} from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 const Input = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
@@ -82,27 +88,30 @@ const Input = () => {
     }
   };
   return (
-    <Box sx={{ bgcolor: "white" }}>
+    <Box>
       <form onSubmit={handleSend}>
         <TextField
           fullWidth
           type="text"
           InputProps={{
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="end">
-                <Stack bgcolor='red'>
-                  <input
-                    type="file"
-                    style={{ display: "none" }}
-                    id="file"
-                    onChange={(e) => setImg(e.target.files[0])}
-                  />
-                  <label htmlFor="file">
-                    <img src={Img} alt="" />
-                  </label>
-                  <button type="submit" onClick={handleSend}>
-                    Send
-                  </button>
+                <Stack flexDirection='row'>
+                  <>
+                    <input
+                      type="file"
+                      style={{ display: "none" }}
+                      id="file"
+                      onChange={(e) => setImg(e.target.files[0])}
+                    />
+                    <label htmlFor="file">
+                      <img src={Img} alt="" />
+                    </label>
+                  </>
+
+                  <IconButton type="submit">
+                    <SendIcon />
+                  </IconButton>
                 </Stack>
               </InputAdornment>
             ),

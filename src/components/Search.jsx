@@ -12,6 +12,18 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 const Search = () => {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
@@ -19,7 +31,8 @@ const Search = () => {
 
   const { currentUser } = useContext(AuthContext);
 
-  const handleSearch = async () => {
+  const handleSearch = async (e) => {
+    e.preventDefault();
     const q = query(
       collection(db, "users"),
       where("displayName", "==", username)
@@ -33,10 +46,6 @@ const Search = () => {
     } catch (err) {
       setErr(true);
     }
-  };
-
-  const handleKey = (e) => {
-    e.code === "Enter" && handleSearch();
   };
 
   const handleSelect = async () => {
@@ -74,27 +83,46 @@ const Search = () => {
     } catch (err) {}
 
     setUser(null);
-    setUsername("")
+    setUsername("");
   };
   return (
-    <div className="search">
-      <div className="searchForm">
-        <input
-          type="text"
-          placeholder="Find a user"
-          onKeyDown={handleKey}
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-        />
+    <div>
+      <div>
+        <form onSubmit={handleSearch}>
+          <TextField
+            size="small"
+            type="text"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton type="submit">
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            placeholder="Find a user"
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
+          />
+        </form>
       </div>
       {err && <span>User not found!</span>}
       {user && (
-        <div className="userChat" onClick={handleSelect}>
-          <img src={user.photoURL} alt="" />
-          <div className="userChatInfo">
-            <span>{user.displayName}</span>
-          </div>
-        </div>
+        <Box my={2}>
+          <Divider />
+          <Button
+            variant="text"
+            sx={{ textTransform: "none" }}
+            flexDirection="row"
+            gap={2}
+            onClick={handleSelect}
+          >
+            <Avatar sx={{ width: 40, height: 40 }} src={user.photoURL} />
+            <Typography variant="subtitle1">{user.displayName}</Typography>
+          </Button>
+          <Divider />
+        </Box>
       )}
     </div>
   );

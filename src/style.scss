@@ -1,8 +1,4 @@
-/* The emerging W3C standard that is currently Firefox-only */
-// body,* {
-//   background: linear-gradient(323deg, rgba(0,0,0,1) 9%, rgba(43,43,43,1) 32%, rgba(29,29,29,1) 68%, rgba(66,66,66,1) 100%, rgba(0,0,0,1) 100%);
 
-// }
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(155, 155, 155, 0.7) transparent;
@@ -10,7 +6,7 @@
 
 /* Works on Chrome/Edge/Safari */
 *::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
 }
 
 *::-webkit-scrollbar-track {
@@ -230,7 +226,7 @@
       flex: 2;
 
       .chatInfo {
-        height: 50px;
+        height: 100px;
         background-color: #5d5b8d;
         display: flex;
         align-items: center;

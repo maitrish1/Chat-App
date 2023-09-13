@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ChatContext } from "../context/ChatContext";
 import { db } from "../firebase";
 import Message from "./Message";
+import { Box } from "@mui/material";
 
 const Messages = () => {
   const [messages, setMessages] = useState([]);
@@ -18,14 +19,12 @@ const Messages = () => {
     };
   }, [data.chatId]);
 
-  console.log(messages)
-
   return (
-    <div className="messages">
+    <Box height='70%' sx={{overflowY:'scroll', p:2}}>
       {messages.map((m) => (
         <Message message={m} key={m.id} />
       ))}
-    </div>
+    </Box>
   );
 };
 
